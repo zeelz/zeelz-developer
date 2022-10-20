@@ -1,0 +1,24 @@
+version: '3.9'
+
+services:
+  mysql:
+    image: "mysql:5.7"
+    platform: linux/amd64
+    environment:
+      - MYSQL_DATABASE=zeelz_developer
+        MYSQL_ROOT_PASSWORD=securepassword
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+
+  wordpress:
+    image: "wordpress:6.0"
+    ports:
+    - "8000:80"
+    environment:
+      - WORDPRESS_DB_HOST=mysql
+        WORDPRESS_DB_NAME=zeelz_developer
+        WORDPRESS_DB_USER=root
+        WORDPRESS_DB_PASSWORD=securepassword
+    platform: linux/amd64
+    depends_on:
+      - mysql
