@@ -2,7 +2,7 @@ name: CD Pipeline
 
 on:
   workflow_run:
-    workflows: ["Docker Image CI__NOT-FOUND"]
+    workflows: ["Docker Image CI__DISABLE_WKFLW"]
     types:
       - completed
 
