@@ -10,6 +10,6 @@ COPY . .
 
 RUN npm run build
 
-EXPOSE 5005
+# EXPOSE 5005
 
 CMD ["node", "./build/index.js"]
