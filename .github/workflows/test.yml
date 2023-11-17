@@ -23,6 +23,6 @@ jobs:
           echo "<h1>This is html created by a job and uploaded!</h1>" > artifacts/workflow.html
       
       - name: "Artifact upload"
-        uses: actions/upload-artifacts@v3
+        uses: actions/upload-artifact@v3
         with:
           path: artifacts/workflow.html
