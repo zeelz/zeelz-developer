@@ -13,4 +13,4 @@ jobs:
   
     steps:
       - name: "bad command"
-        run: cd $MY_ENV_1
+        run: od $MY_ENV_1
