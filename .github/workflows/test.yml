@@ -13,4 +13,4 @@ jobs:
   
     steps:
       - name: "bad command"
-        run: cda $MY_ENV_1
+        run: cd $MY_ENV_1
