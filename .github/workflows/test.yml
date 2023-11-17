@@ -13,4 +13,4 @@ jobs:
   
     steps:
       - name: "bad command"
-        run: od $MY_ENV_1
+        run: cadx $MY_ENV_1
