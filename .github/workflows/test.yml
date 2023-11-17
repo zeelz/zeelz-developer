@@ -7,13 +7,22 @@ on:
 
 jobs:
   build:
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest]
-    runs-on: ${{ matrix.os }}
+    # strategy:
+    #   matrix:
+    #     os: [ubuntu-latest, windows-latest]
+    # runs-on: ${{ matrix.os }}
+
+    runs-on: ubuntu-latest
     env:
       MY_ENV_1: ${{secrets.MY_ENV_1}}
   
     steps:
-      - name: "bad command"
-        run: echo $MY_ENV_1
+      - name: "Create html for upload"
+        run: |
+          mkdir artifacts
+          echo "<h1>This is html created by a job and uploaded!</h1>" > artifacts/workflow.html
+      
+      - name: "Artifact upload"
+        uses: actions/upload-artifacts@v3
+        with:
+          path: artifacts/workflow.html
