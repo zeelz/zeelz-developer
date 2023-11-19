@@ -2,7 +2,7 @@ name: Docker Image CI
 
 on:
   push:
-    branches: ["github-action-ec2"]
+    branches: ["github-action-ec2__DISABLE_WKFLW"]
 
 jobs:
   build:
