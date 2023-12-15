@@ -15,6 +15,7 @@ jobs:
     # runs-on: ${{ matrix.os }}
 
     runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == false
     env:
       MY_ENV_1: ${{secrets.MY_ENV_1}}
     steps:
@@ -44,4 +45,5 @@ jobs:
 
       - name: use file
         run: |
-          ls workflow-files/secret.pem
+          ls artifacts/workflow-files/secret.pem
+          ls artifacts/secret.pem
