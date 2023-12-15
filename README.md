@@ -19,6 +19,9 @@ Change `HOST_PORT` and `CONTAINER_PORT` to your desired ports
 **Available route**
 
 `/status`
+<<<<<<< HEAD
 
 @jprodyx
  jprodyx x2
+=======
+>>>>>>> 377028b (upload/download)

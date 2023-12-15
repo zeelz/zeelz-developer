@@ -2,8 +2,12 @@ name: "Test Workflow"
 
 on:
   pull_request:
+<<<<<<< HEAD
     branches:
     - github-action-ec2
+=======
+    branches: github-action-ec2
+>>>>>>> 377028b (upload/download)
 
 jobs:
   build:
@@ -15,14 +19,43 @@ jobs:
     runs-on: ubuntu-latest
     env:
       MY_ENV_1: ${{secrets.MY_ENV_1}}
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> 377028b (upload/download)
     steps:
       - name: "Create html for upload"
         run: |
           mkdir artifacts
           echo "<h1>This is html created by a job and uploaded!</h1><p>Added this <pre> to trigger workflow</pre>" > artifacts/workflow.html
+<<<<<<< HEAD
       
       - name: "Artifact upload"
         uses: actions/upload-artifact@v3
         with:
           path: artifacts/workflow.html
+=======
+
+      - name: create file
+        run: |
+          echo ${MY_ENV_1} > artifacts/secret.pem
+
+      - name: "Artifact upload"
+        uses: actions/upload-artifact@v3
+        with:
+          path: artifacts
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+    needs: build
+    steps:
+      - name: download file
+        uses: actions/download-artifact@v3
+        with:
+          name: artifacts
+
+      - name: use file
+        run: |
+          ls artifacts/secret.pem
+>>>>>>> 377028b (upload/download)
