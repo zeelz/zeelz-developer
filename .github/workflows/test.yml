@@ -34,9 +34,6 @@ jobs:
           name: artifacts
           path: workflow-files
 
-      - name: trigger fail
-        run: cat fakefile
-
   deploy:
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == true
