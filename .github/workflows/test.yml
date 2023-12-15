@@ -20,17 +20,18 @@ jobs:
     steps:
       - name: "Create html for upload"
         run: |
-          mkdir artifacts
-          echo "<h1>This is html created by a job and uploaded!</h1><p>Added this <pre> to trigger workflow</pre>" > artifacts/workflow.html
+          mkdir workflow-files
+          echo "<h1>This is html created by a job and uploaded!</h1><p>Added this <pre> to trigger workflow</pre>" > workflow-files/workflow.html
 
       - name: create file
         run: |
-          echo ${MY_ENV_1} > artifacts/secret.pem
+          echo ${MY_ENV_1} > workflow-files/secret.pem
 
       - name: "Artifact upload"
         uses: actions/upload-artifact@v3
         with:
-          path: artifacts
+          name: artifacts
+          path: workflow-files
   deploy:
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == true
@@ -43,4 +44,4 @@ jobs:
 
       - name: use file
         run: |
-          ls artifacts/secret.pem
+          ls workflow-files/secret.pem
