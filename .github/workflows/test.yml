@@ -3,6 +3,9 @@ name: "Test Workflow"
 on:
   pull_request:
     branches: github-action-ec2
+    types:
+      - opened
+      - closed
 
 jobs:
   build:
