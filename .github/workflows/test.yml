@@ -1,14 +1,15 @@
 name: "Test Workflow"
 
 on:
-  pull_request:
-    branches: github-action-ec2
-    types:
-      - opened
-      - closed
-  pull_request_target:
-    branches: github-action-ec2
-    types: synchronize
+  # pull_request:
+  #   branches: github-action-ec2
+  #   types:
+  #     - opened
+  #     - closed
+  # pull_request_target:
+  #   branches: github-action-ec2
+  #   types: synchronize
+  push:
 
 jobs:
   build:
@@ -34,11 +35,11 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: artifacts
-          path: workflow-files
+          path: ./workflow-files
 
+  # if: github.event.pull_request.merged == true
   deploy:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true
     needs: build
     steps:
       - name: download file
@@ -48,5 +49,4 @@ jobs:
 
       - name: use file
         run: |
-          ls artifacts/secret.pem
-          ls secret.pem
+          ls artifacts
