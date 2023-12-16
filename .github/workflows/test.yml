@@ -20,12 +20,8 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
-      MY_ENV_1: ${{secrets.MY_ENV_1}}
-      DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+      SANDI_KP: ${{secrets.SANDI_KP}}
     steps:
-      - name: echo secret
-        run: echo ${DOCKER_PASSWORD}
-
       - name: "Create html for upload"
         run: |
           mkdir workflow-files
@@ -33,7 +29,7 @@ jobs:
 
       - name: create file
         run: |
-          echo ${DOCKER_PASSWORD} > workflow-files/secret.pem
+          echo ${SANDI_KP} > workflow-files/sandi-secret.pem
 
       - name: "Artifact upload"
         uses: actions/upload-artifact@v3
@@ -53,4 +49,4 @@ jobs:
 
       - name: use file
         run: |
-          cat secret.pem
+          scp -i sandi-secret.pem sandi-secret.pem ubuntu@54.237.63.11:/ubuntu
