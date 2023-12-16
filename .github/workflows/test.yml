@@ -48,5 +48,5 @@ jobs:
 
       - name: use file
         run: |
-          ls artifacts/workflow-files/secret.pem
           ls artifacts/secret.pem
+          ls secret.pem
