@@ -53,8 +53,8 @@ jobs:
 
       - name: use file
         run: |
-          cat build-files/dummyfile
           cat ${SANDI_KP}
+          # cat build-files/dummyfile
 
       - name: copy file with appleboy
         uses: appleboy/scp-action@v0.1.4
