@@ -9,7 +9,8 @@ on:
   # pull_request_target:
   #   branches: github-action-ec2
   #   types: synchronize
-  push:
+
+  push__DISABLED:
 
 env:
   SANDI_KP: ${{ secrets.SANDI_KP }}
@@ -54,23 +55,6 @@ jobs:
       - name: use file
         run: |
           cat build-files/dummyfile
-
-      # - name: copy file with appleboy
-      #   uses: appleboy/scp-action@v0.1.4
-      #   with:
-      #     host: 54.237.63.11
-      #     username: ubuntu
-      #     key: ${SANDI_KP}
-      #     source: build-files/dummyfile
-      #     target: /home/ubuntu
-      - name: Copy single file to remote
-        uses: garygrossgarten/github-action-scp@release
-        with:
-          local: build-files/dummyfile
-          remote: /home/ubuntu
-          host: 54.237.63.11
-          username: ubuntu
-          privateKey: ${SANDI_KP}
 
         # scp -v -o StrictHostKeyChecking=no -i ${{ secrets.MY_ENV_1 }} sandi-secret.pem ubuntu@54.237.63.11:/ubuntu
         # scp -v -o StrictHostKeyChecking=no -i sandi-secret.pem sandi-secret.pem ubuntu@54.237.63.11:/ubuntu
