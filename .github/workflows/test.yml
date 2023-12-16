@@ -20,24 +20,22 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
-      SANDI_KP: ${{secrets.SANDI_KP}}
+      MY_ENV_1: ${{secrets.MY_ENV_1}}
     steps:
       - name: "Create html for upload"
         run: |
-          mkdir workflow-files
-          echo "<h1>This is html created by a job and uploaded!</h1><p>Added this <pre> to trigger workflow</pre>" > workflow-files/workflow.html
+          mkdir build-files
+          echo "<h1>This is html created by a job and uploaded!</h1><p>Added this <pre> to trigger workflow</pre>" > build-files/workflow.html
 
       - name: create file
         run: |
-          echo ${SANDI_KP} > workflow-files/sandi-secret.pem
-          chmod 400 workflow-files/sandi-secret.pem
-          ls -la workflow-files/sandi-secret.pem
+          echo ${MY_ENV_1} > build-files/dummyfile
 
       - name: "Artifact upload"
         uses: actions/upload-artifact@v3
         with:
           name: artifact
-          path: ./workflow-files
+          path: ./build-files
 
   # if: github.event.pull_request.merged == true
   deploy:
@@ -48,12 +46,11 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: artifact
+          path: build-files
 
       - name: use file
         run: |
-          mkdir -p ~/.ssh
-          ssh-keyscan -H 54.237.63.11 >> ~/.ssh/known_hosts
-          chmod 400 sandi-secret.pem
-          scp -v -o StrictHostKeyChecking=no -i ${{ secrets.SANDI_KP }} sandi-secret.pem ubuntu@54.237.63.11:/ubuntu
+          cat dummyfile
 
-#       scp -v -o StrictHostKeyChecking=no -i sandi-secret.pem sandi-secret.pem ubuntu@54.237.63.11:/ubuntu
+        # scp -v -o StrictHostKeyChecking=no -i ${{ secrets.MY_ENV_1 }} sandi-secret.pem ubuntu@54.237.63.11:/ubuntu
+        # scp -v -o StrictHostKeyChecking=no -i sandi-secret.pem sandi-secret.pem ubuntu@54.237.63.11:/ubuntu
