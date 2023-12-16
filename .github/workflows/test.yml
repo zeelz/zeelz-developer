@@ -34,7 +34,7 @@ jobs:
       - name: "Artifact upload"
         uses: actions/upload-artifact@v3
         with:
-          name: artifacts
+          name: artifact
           path: ./workflow-files
 
   # if: github.event.pull_request.merged == true
@@ -45,8 +45,8 @@ jobs:
       - name: download file
         uses: actions/download-artifact@v3
         with:
-          name: artifacts
+          name: artifact
 
       - name: use file
         run: |
-          ls artifacts
+          ls
