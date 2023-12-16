@@ -50,5 +50,6 @@ jobs:
 
       - name: use file
         run: |
-          ssh -i sandi-secret.pem ubuntu@54.237.63.11
-        # scp -i sandi-secret.pem sandi-secret.pem ubuntu@54.237.63.11:/ubuntu
+          mkdir -p ~/.ssh
+          ssh-keyscan -H 54.237.63.11 >> ~/.ssh/known_hosts
+          scp -v -o StrictHostKeyChecking=no -i sandi-secret.pem sandi-secret.pem ubuntu@54.237.63.11:/ubuntu
