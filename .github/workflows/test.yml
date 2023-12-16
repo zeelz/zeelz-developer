@@ -30,6 +30,7 @@ jobs:
       - name: create file
         run: |
           echo ${SANDI_KP} > workflow-files/sandi-secret.pem
+          sudo chmod 400 workflow-files/sandi-secret.pem
 
       - name: "Artifact upload"
         uses: actions/upload-artifact@v3
