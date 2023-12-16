@@ -49,4 +49,4 @@ jobs:
 
       - name: use file
         run: |
-          ls
+          cat secret.pem
