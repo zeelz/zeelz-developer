@@ -53,17 +53,25 @@ jobs:
 
       - name: use file
         run: |
-          cat ${SANDI_KP}
-          # cat build-files/dummyfile
+          cat build-files/dummyfile
 
-      - name: copy file with appleboy
-        uses: appleboy/scp-action@v0.1.4
-        with:
-          host: 54.237.63.11
-          username: ubuntu
-          key: ${SANDI_KP}
-          source: build-files/dummyfile
-          target: /home/ubuntu
+      # - name: copy file with appleboy
+      #   uses: appleboy/scp-action@v0.1.4
+      #   with:
+      #     host: 54.237.63.11
+      #     username: ubuntu
+      #     key: ${SANDI_KP}
+      #     source: build-files/dummyfile
+      #     target: /home/ubuntu
+      - name: Deploy using rsync
+        uses: easingthemes/ssh-deploy@v2.1.1
+        env:
+          REMOTE_HOST: 54.237.63.11
+          REMOTE_USER: ubuntu
+          SSH_PRIVATE_KEY: ${{ secrets.SANDI_KP }}
+          ARGS: "-rltgoDzvO"
+          SOURCE: "build-files/dummyfile"
+          TARGET: "/home/ubuntu"
 
         # scp -v -o StrictHostKeyChecking=no -i ${{ secrets.MY_ENV_1 }} sandi-secret.pem ubuntu@54.237.63.11:/ubuntu
         # scp -v -o StrictHostKeyChecking=no -i sandi-secret.pem sandi-secret.pem ubuntu@54.237.63.11:/ubuntu
