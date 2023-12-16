@@ -30,7 +30,8 @@ jobs:
       - name: create file
         run: |
           echo ${SANDI_KP} > workflow-files/sandi-secret.pem
-          sudo chmod 400 workflow-files/sandi-secret.pem
+          chmod 400 workflow-files/sandi-secret.pem
+          ls -la workflow-files/sandi-secret.pem
 
       - name: "Artifact upload"
         uses: actions/upload-artifact@v3
@@ -52,4 +53,5 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           ssh-keyscan -H 54.237.63.11 >> ~/.ssh/known_hosts
+          chmod 400 sandi-secret.pem
           scp -v -o StrictHostKeyChecking=no -i sandi-secret.pem sandi-secret.pem ubuntu@54.237.63.11:/ubuntu
