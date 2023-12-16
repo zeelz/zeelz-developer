@@ -50,4 +50,5 @@ jobs:
 
       - name: use file
         run: |
-          scp -i sandi-secret.pem sandi-secret.pem ubuntu@54.237.63.11:/ubuntu
+          ssh -i sandi-secret.pem ubuntu@54.237.63.11
+        # scp -i sandi-secret.pem sandi-secret.pem ubuntu@54.237.63.11:/ubuntu
