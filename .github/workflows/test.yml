@@ -23,6 +23,9 @@ jobs:
       MY_ENV_1: ${{secrets.MY_ENV_1}}
       DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
     steps:
+      - name: echo secret
+        run: echo ${DOCKER_PASSWORD}
+
       - name: "Create html for upload"
         run: |
           mkdir workflow-files
