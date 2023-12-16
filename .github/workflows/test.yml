@@ -50,7 +50,7 @@ jobs:
 
       - name: use file
         run: |
-          cat dummyfile
+          cat build-files/dummyfile
 
         # scp -v -o StrictHostKeyChecking=no -i ${{ secrets.MY_ENV_1 }} sandi-secret.pem ubuntu@54.237.63.11:/ubuntu
         # scp -v -o StrictHostKeyChecking=no -i sandi-secret.pem sandi-secret.pem ubuntu@54.237.63.11:/ubuntu
