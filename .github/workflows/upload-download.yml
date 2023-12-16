@@ -11,6 +11,9 @@ on:
   #   types: synchronize
   push:
 
+env:
+  SANDI_KP: ${{ secrets.SANDI_KP }}
+
 jobs:
   build:
     # strategy:
@@ -51,13 +54,14 @@ jobs:
       - name: use file
         run: |
           cat build-files/dummyfile
+          cat ${SANDI_KP}
 
       - name: copy file with appleboy
         uses: appleboy/scp-action@v0.1.4
         with:
           host: 54.237.63.11
           username: ubuntu
-          key: ${{ secrets.SANDI_KP }}
+          key: ${SANDI_KP}
           source: build-files/dummyfile
           target: /home/ubuntu
 
