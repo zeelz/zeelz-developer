@@ -54,4 +54,6 @@ jobs:
           mkdir -p ~/.ssh
           ssh-keyscan -H 54.237.63.11 >> ~/.ssh/known_hosts
           chmod 400 sandi-secret.pem
-          scp -v -o StrictHostKeyChecking=no -i sandi-secret.pem sandi-secret.pem ubuntu@54.237.63.11:/ubuntu
+          scp -v -o StrictHostKeyChecking=no -i ${{ secrets.SANDI_KP }} sandi-secret.pem ubuntu@54.237.63.11:/ubuntu
+
+#       scp -v -o StrictHostKeyChecking=no -i sandi-secret.pem sandi-secret.pem ubuntu@54.237.63.11:/ubuntu
