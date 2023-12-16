@@ -6,6 +6,9 @@ on:
     types:
       - opened
       - closed
+  pull_request_target:
+    branches: github-action-ec2
+    types: synchronize
 
 jobs:
   build:
@@ -15,7 +18,6 @@ jobs:
     # runs-on: ${{ matrix.os }}
 
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == false
     env:
       MY_ENV_1: ${{secrets.MY_ENV_1}}
     steps:
@@ -37,6 +39,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == true
+    needs: build
     steps:
       - name: download file
         uses: actions/download-artifact@v3
