@@ -1,14 +1,15 @@
 name: "Test Workflow"
 
 on:
-  pull_request:
-    branches: github-action-ec2
-    types:
-      - opened
-      - closed
-  pull_request_target:
-    branches: github-action-ec2
-    types: synchronize
+  # pull_request:
+  #   branches: github-action-ec2
+  #   types:
+  #     - opened
+  #     - closed
+  # pull_request_target:
+  #   branches: github-action-ec2
+  #   types: synchronize
+  push:
 
 jobs:
   build:
@@ -23,30 +24,33 @@ jobs:
     steps:
       - name: "Create html for upload"
         run: |
-          mkdir workflow-files
-          echo "<h1>This is html created by a job and uploaded!</h1><p>Added this <pre> to trigger workflow</pre>" > workflow-files/workflow.html
+          mkdir build-files
+          echo "<h1>This is html created by a job and uploaded!</h1><p>Added this <pre> to trigger workflow</pre>" > build-files/workflow.html
 
       - name: create file
         run: |
-          echo ${MY_ENV_1} > workflow-files/secret.pem
+          echo ${MY_ENV_1} > build-files/dummyfile
 
       - name: "Artifact upload"
         uses: actions/upload-artifact@v3
         with:
-          name: artifacts
-          path: workflow-files
+          name: artifact
+          path: ./build-files
 
+  # if: github.event.pull_request.merged == true
   deploy:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true
     needs: build
     steps:
       - name: download file
         uses: actions/download-artifact@v3
         with:
-          name: artifacts
+          name: artifact
+          path: build-files
 
       - name: use file
         run: |
-          ls artifacts/secret.pem
-          ls secret.pem
+          cat build-files/dummyfile
+
+        # scp -v -o StrictHostKeyChecking=no -i ${{ secrets.MY_ENV_1 }} sandi-secret.pem ubuntu@54.237.63.11:/ubuntu
+        # scp -v -o StrictHostKeyChecking=no -i sandi-secret.pem sandi-secret.pem ubuntu@54.237.63.11:/ubuntu
