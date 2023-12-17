@@ -13,7 +13,7 @@ jobs:
 
       - name: update readme
         run: |
-          echo \n[@ZEELZ](https://twitter.com/zeelz) >> README.md
+          echo -e "\n[@ZEELZ](https://twitter.com/zeelz)" >> README.md
 
       - name: commit and push
         run: |
