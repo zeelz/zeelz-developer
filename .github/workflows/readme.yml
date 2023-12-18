@@ -1,0 +1,26 @@
+name: ReadMe
+
+on: push
+
+jobs:
+  readme:
+    runs-on: ubuntu-latest
+    env:
+      PORT: 4000
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: start node server
+        run: |
+          node readme.js > /dev/null &
+
+      - name: make request
+        run: |
+          SVG=$(curl localhost:${PORT}/svg)
+          echo $SVG >> README.md
+          git add README.md
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+          git commit -m "added svg to readme"
+          git push

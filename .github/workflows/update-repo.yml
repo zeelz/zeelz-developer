@@ -1,7 +1,9 @@
 name: Update Repo
 # Add new stuff or update repo files
 
-on: push__DISABLED
+on:
+  push:
+    branches: [DISABLED]
 
 jobs:
   update-repo:
