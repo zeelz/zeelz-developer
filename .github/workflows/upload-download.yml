@@ -9,7 +9,12 @@ on:
   # pull_request_target:
   #   branches: github-action-ec2
   #   types: synchronize
+
   push:
+    branches: [DISABLED]
+
+env:
+  SANDI_KP: ${{ secrets.SANDI_KP }}
 
 jobs:
   build:

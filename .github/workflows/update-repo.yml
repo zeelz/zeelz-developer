@@ -1,0 +1,26 @@
+name: Update Repo
+# Add new stuff or update repo files
+
+on:
+  push:
+    branches: [DISABLED]
+
+jobs:
+  update-repo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: update readme
+        run: |
+          echo -e "\n[@ZEELZ](https://twitter.com/zeelz)" >> README.md
+
+      - name: commit and push
+        run: |
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+          git add README.md
+          git commit -m "update readme"
+          git push
