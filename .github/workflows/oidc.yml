@@ -1,0 +1,18 @@
+name: oidc-connect-test
+
+on: push
+
+permissions:
+  id-token: write # This is required for requesting the JWT
+
+jobs:
+  oidc-connect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: aws configure
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::650267257878:role/OIDC
+          aws-region: us-east-1
+      - name: ls s3 buckets
+        run: aws s3 ls

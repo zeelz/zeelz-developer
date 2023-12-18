@@ -1,6 +1,8 @@
 name: ReadMe
 
-on: push
+on:
+  push:
+    branches: [DISABLED]
 
 jobs:
   readme:
@@ -19,8 +21,9 @@ jobs:
       - name: make request
         run: |
           SVG=$(curl localhost:${PORT}/svg)
-          echo $SVG >> README.md
-          git add README.md
+          echo $SVG > profile.svg
+          echo '<img src="profile.svg">' >> README.md
+          git add profile.svg README.md
           git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor }}@users.noreply.github.com"
           git commit -m "added svg to readme"
