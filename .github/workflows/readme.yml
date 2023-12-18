@@ -5,6 +5,7 @@ on: push
 jobs:
   readme:
     runs-on: ubuntu-latest
+    if: false
     env:
       PORT: 4000
     steps:
@@ -24,3 +25,9 @@ jobs:
           git config user.email "${{ github.actor }}@users.noreply.github.com"
           git commit -m "added svg to readme"
           git push
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: pass
+        run: echo pass
